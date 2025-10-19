@@ -1,0 +1,2196 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mitigasi Banjir Bandang - SMAK 1 BPK PENABUR Bandung</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        /* Reset dan variabel */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --dark-bg: #0f0f1e;
+            --text-white: #ffffff;
+            --text-dark: #333333;
+            --light-bg: #f8fafc;
+            --card-light: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background: var(--light-bg);
+            overflow-x: hidden;
+            color: var(--text-dark);
+        }
+
+        body.dark-mode {
+            background: var(--dark-bg);
+            color: var(--text-white);
+        }
+
+        /* Header yang lebih besar dan teks putih */
+        h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.5);
+            letter-spacing: 3px;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Canvas particles */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Emergency Banner */
+        .emergency {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.5s ease-out;
+            cursor: pointer;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100%); }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.9), rgba(58, 123, 213, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .water-drop {
+            position: absolute;
+            background: radial-gradient(circle, rgba(100, 200, 255, 0.4), transparent);
+            border-radius: 50%;
+            animation: dropFall linear infinite;
+        }
+
+        @keyframes dropFall {
+            0% {
+                transform: translateY(-100px) scale(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            animation: fadeInUp 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 2px 2px 20px rgba(0,0,0,0.5), 0 0 30px rgba(100, 200, 255, 0.5);
+            }
+            50% {
+                text-shadow: 2px 2px 20px rgba(0,0,0,0.5), 0 0 50px rgba(100, 200, 255, 0.8);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .stats-bar {
+            background: rgba(26, 26, 46, 0.95);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #555;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .dark-mode .stat-label {
+            color: #ccc;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dark-mode .section {
+            background: var(--dark-bg);
+        }
+
+        .section.dark {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .section.gradient {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .light-mode .section.dark,
+        .light-mode .section.gradient {
+            background: linear-gradient(135deg, #e6f0ff 0%, #d1e0ff 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--card-light);
+            padding: 1.8rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
+        }
+
+        .icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            position: relative;
+            z-index: 1;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-left: 5px solid var(--primary-color);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 3rem 0;
+        }
+
+        .dark-mode .info-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        }
+
+        /* Steps */
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 1.8rem;
+            background: var(--card-light);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .dark-mode .step {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .step.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .step:hover {
+            transform: scale(1.08) translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .dark-mode .step:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        .step:hover .step-number {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        /* Accordion */
+        .accordion {
+            margin: 3rem 0;
+        }
+
+        .accordion-item {
+            background: var(--card-light);
+            margin: 1rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .accordion-item {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .accordion-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), padding 0.6s ease, opacity 0.6s ease;
+            background: rgba(255, 255, 255, 0.05);
+            opacity: 0;
+        }
+
+        .light-mode .accordion-content {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .accordion-content.active {
+            max-height: 800px;
+            padding: 1.5rem;
+            opacity: 1;
+        }
+
+        .accordion-header span:last-child {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+
+        /* Video Cards with Dynamic Thumbnails */
+        .video-card {
+            background: var(--card-light);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .dark-mode .video-card {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .video-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 45px rgba(102, 126, 234, 0.2);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .video-thumbnail::before {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+            z-index: 2;
+            width: 70px;
+            height: 70px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            padding-left: 5px;
+        }
+
+        .video-card:hover .video-thumbnail::before {
+            background: rgba(102, 126, 234, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        /* Article Cards */
+        .article-card {
+            background: var(--card-light);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .dark-mode .article-card {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .article-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .article-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.15);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.1) 75%);
+            background-size: 20px 20px;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .dark-mode .article-meta {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .article-tag {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: auto;
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .read-more:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .light-mode footer {
+            background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%);
+        }
+
+        .credits {
+            margin-top: 2rem;
+            font-style: italic;
+            opacity: 0.8;
+            font-size: 1.1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            z-index: 9999;
+        }
+
+        /* Floating Button */
+        .floating-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        .floating-button:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode nav {
+            background: rgba(26, 26, 46, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .dark-mode .nav-link {
+            color: var(--text-white);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        .dark-mode .dark-mode-toggle {
+            color: var(--text-white);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Tab Navigation */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            margin: 0.25rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        .dark-mode .tab-btn {
+            color: var(--text-white);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .dark-mode .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Articles Scroll Container */
+        .articles-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) rgba(255, 255, 255, 0.1);
+        }
+
+        .articles-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .articles-scroll-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .dark-mode .articles-scroll-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .articles-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .article-card-scroll {
+            min-width: 250px;
+            flex: 0 0 auto;
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .scroll-btn:hover {
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-btn-left {
+            left: -20px;
+        }
+
+        .scroll-btn-right {
+            right: -20px;
+        }
+
+        /* Evacuation Area Styles */
+        .evacuation-area {
+            background: var(--card-light);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 3rem;
+        }
+
+        .dark-mode .evacuation-area {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .map-container {
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .evacuation-item {
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .evacuation-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .evacuation-item.blue {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+        }
+
+        .evacuation-item.green {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid #10b981;
+        }
+
+        .evacuation-item.yellow {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+        }
+
+        .evacuation-item.purple {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .evacuation-item.red {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+        }
+
+        .dark-mode .evacuation-item.blue {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        .dark-mode .evacuation-item.green {
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .dark-mode .evacuation-item.yellow {
+            background: rgba(245, 158, 11, 0.2);
+        }
+
+        .dark-mode .evacuation-item.purple {
+            background: rgba(139, 92, 246, 0.2);
+        }
+
+        .dark-mode .evacuation-item.red {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .scroll-btn {
+                display: none;
+            }
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.5rem; }
+            h3 { font-size: 1.8rem; }
+            .subtitle { font-size: 1.2rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .stats-bar { grid-template-columns: 1fr; }
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-light);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .dark-mode .modal-content {
+            background: var(--dark-bg);
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dark-mode .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .dark-mode .close-modal {
+            color: var(--text-white);
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body class="light-mode">
+<div class="scroll-progress" id="scrollProgress"></div>
+<canvas id="particles-canvas"></canvas>
+<!-- Navigation -->
+<nav>
+<div class="nav-container">
+<a class="logo" href="#">🌊 MitiBanjir</a>
+<div class="nav-links">
+<a class="nav-link" href="#home">Beranda</a>
+<a class="nav-link" href="#about">Tentang</a>
+<a class="nav-link" href="#characteristics">Ciri-ciri</a>
+<a class="nav-link" href="#mitigation">Mitigasi</a>
+<a class="nav-link" href="#emergency">Darurat</a>
+<a class="nav-link" href="#articles">Artikel</a>
+<a class="nav-link" href="#videos">Video</a>
+<a class="nav-link" href="#evacuation">Evakuasi</a>
+<a class="nav-link" href="#contact">Kontak</a>
+</div>
+<button class="dark-mode-toggle" id="darkModeToggle">🌙</button>
+</div>
+</nav>
+<div class="emergency" id="emergencyBanner">
+<strong>⚠️ PERINGATAN:</strong> Selalu siaga dan pantau informasi cuaca dari BMKG | Hotline Darurat: 112 | BNPB: 117
+    </div>
+<div class="hero" id="home">
+<div class="animated-bg" id="waterDrops"></div>
+<div class="hero-content">
+<h1 style="color: white; font-size: 3.5rem;">🌊 Mitigasi Banjir Bandang</h1>
+<p class="subtitle">Bersama Lindungi Diri dan Lingkungan dari Bahaya Banjir</p>
+<a class="cta-button" href="#about">Pelajari Lebih Lanjut 📖</a>
+</div>
+</div>
+<div class="stats-bar">
+<div class="stat-item">
+<div class="stat-number" data-target="1500">0</div>
+<div class="stat-label">Kejadian Banjir/Tahun</div>
+</div>
+<div class="stat-item">
+<div class="stat-number" data-target="85">0</div>
+<div class="stat-label">Daerah Rawan Banjir</div>
+</div>
+<div class="stat-item">
+<div class="stat-number" data-target="60">0</div>
+<div class="stat-label">Juta Penduduk Terancam</div>
+</div>
+<div class="stat-item">
+<div class="stat-number" data-target="24">0</div>
+<div class="stat-label">Jam Response Time</div>
+</div>
+</div>
+<div class="section" id="about">
+<div class="container">
+<h2 style="font-size: 2.5rem;">🌍 Apa Itu Banjir Bandang?</h2>
+<p style="text-align: center; max-width: 900px; margin: 0 auto 3rem; font-size: 1.2rem; line-height: 1.8;">
+                Banjir bandang adalah banjir yang datang secara tiba-tiba dengan debit air yang besar dan deras, biasanya terjadi di daerah aliran sungai atau lereng gunung. Banjir ini sangat berbahaya karena kecepatan dan kekuatan airnya yang dapat menyapu apapun yang dilaluinya.
+            </p>
+<div class="info-box">
+<h3 style="margin-bottom: 1rem;">💡 Tahukah Anda?</h3>
+<p style="line-height: 1.8;">Banjir bandang dapat mencapai kecepatan hingga 30 km/jam dan membawa material seperti batu, pohon, dan lumpur yang sangat berbahaya. Waktu peringatan biasanya hanya 10-15 menit, sehingga kesiapsiagaan sangat penting!</p>
+</div>
+</div>
+</div>
+<div class="section gradient">
+<div class="container">
+<h2 style="font-size: 2.5rem;">Banjir Bandang</h2>
+<div class="card-grid">
+<div class="card">
+<span class="icon">🌧️</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Curah Hujan Tinggi</h3>
+<p>Intensitas hujan yang sangat tinggi dalam waktu singkat dapat menyebabkan volume air meningkat drastis dan memicu banjir bandang.</p>
+<div class="progress-bar">
+<div class="progress-fill" data-width="90"></div>
+</div>
+<small style="color: var(--primary-color);">Faktor Risiko: 90%</small>
+</div>
+<div class="card">
+<span class="icon">🌳</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Deforestasi</h3>
+<p>Penggundulan hutan mengurangi kemampuan tanah menyerap air, sehingga air hujan langsung mengalir ke permukaan dan meningkatkan risiko banjir.</p>
+<div class="progress-bar">
+<div class="progress-fill" data-width="85"></div>
+</div>
+<small style="color: var(--primary-color);">Faktor Risiko: 85%</small>
+</div>
+<div class="card">
+<span class="icon">🏔️</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Kondisi Geografis</h3>
+<p>Daerah dengan topografi curam seperti lereng gunung atau lembah sempit sangat rentan terhadap banjir bandang karena air mengalir dengan cepat.</p>
+<div class="progress-bar">
+<div class="progress-fill" data-width="75"></div>
+</div>
+<small style="color: var(--primary-color);">Faktor Risiko: 75%</small>
+</div>
+<div class="card">
+<span class="icon">🏗️</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Pembangunan Tidak Terencana</h3>
+<p>Pembangunan di daerah resapan air dan bantaran sungai mengurangi area penyerapan alami dan mempercepat aliran air permukaan.</p>
+<div class="progress-bar">
+<div class="progress-fill" data-width="80"></div>
+</div>
+<small style="color: var(--primary-color);">Faktor Risiko: 80%</small>
+</div>
+</div>
+</div>
+</div>
+<div class="section dark" id="characteristics">
+<div class="container">
+<h2 style="font-size: 2.5rem;">🔍 Ciri-ciri Banjir Bandang</h2>
+<div class="steps">
+<div class="step">
+<div class="step-number">1</div>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Air Sungai Keruh</h3>
+<p>Air sungai berubah warna menjadi coklat keruh karena membawa lumpur dari hulu</p>
+</div>
+<div class="step">
+<div class="step-number">2</div>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Suara Gemuruh</h3>
+<p>Terdengar suara seperti kereta api dari arah hulu sungai</p>
+</div>
+<div class="step">
+<div class="step-number">3</div>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Permukaan Air Naik Cepat</h3>
+<p>Permukaan air sungai atau selokan naik dengan cepat meski hujan belum deras</p>
+</div>
+<div class="step">
+<div class="step-number">4</div>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Hewan Gelisah</h3>
+<p>Anjing menggonggong, ayam berkokok tidak pada waktunya</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="mitigation">
+<div class="container">
+<h2 style="font-size: 2.5rem;">🛡️ Langkah Mitigasi Banjir Bandang</h2>
+<div class="card-grid">
+<div class="card">
+<span class="icon">🌳</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Reboisasi</h3>
+<p>Menanam kembali hutan untuk menyerap air hujan dan mencegah erosi tanah yang dapat menyebabkan banjir bandang.</p>
+</div>
+<div class="card">
+<span class="icon">🏗️</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Pembangunan Bendungan</h3>
+<p>Mengatur aliran air dan menampung air berlebih untuk mengurangi risiko banjir.</p>
+</div>
+<div class="card">
+<span class="icon">📡</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Sistem Peringatan Dini</h3>
+<p>Memberikan informasi cuaca dan potensi banjir kepada masyarakat untuk evakuasi dini.</p>
+</div>
+<div class="card">
+<span class="icon">📚</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Edukasi Masyarakat</h3>
+<p>Meningkatkan kesadaran dan kesiapsiagaan masyarakat dalam menghadapi banjir bandang.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section gradient" id="emergency">
+<div class="container">
+<h2 style="font-size: 2.5rem;">🚨 Langkah Saat Darurat</h2>
+<div class="card-grid">
+<div class="card">
+<span class="icon">🏃‍♂️</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Evakuasi Segera</h3>
+<p>Segera menuju ke tempat yang lebih tinggi dan hindari berjalan atau berkendara di air yang mengalir.</p>
+</div>
+<div class="card">
+<span class="icon">📱</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Hubungi Bantuan</h3>
+<p>Hubungi tim darurat atau keluarga untuk meminta bantuan dan informasi terkini.</p>
+</div>
+<div class="card">
+<span class="icon">🎒</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Bawa Tas Darurat</h3>
+<p>Siapkan tas berisi dokumen penting, obat-obatan, makanan, air, dan perlengkapan darurat.</p>
+</div>
+<div class="card">
+<span class="icon">⛰️</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Tunggu Kondisi Aman</h3>
+<p>Tunggu hingga kondisi benar-benar aman sebelum kembali ke rumah atau area terdampak.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="articles">
+<div class="container">
+<h2 style="font-size: 2.5rem;">📚 Artikel &amp; Edukasi</h2>
+<p style="text-align: center; max-width: 900px; margin: 0 auto 3rem; font-size: 1.2rem; line-height: 4;">
+                Pelajari lebih dalam tentang lingkungan dan mitigasi bencana
+            </p>
+<!-- Search Bar -->
+<div class="max-w-md mx-auto mb-12">
+<div class="relative">
+<input class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white" id="articleSearch" placeholder="Cari artikel..." type="text"/>
+<div class="absolute left-4 top-3.5 text-gray-400">
+<i class="fas fa-search"></i>
+</div>
+</div>
+</div>
+<!-- Articles Scroll Container -->
+<div class="relative">
+<button class="scroll-btn scroll-btn-left" onclick="scrollArticles(-300)">
+<i class="fas fa-chevron-left"></i>
+</button>
+<button class="scroll-btn scroll-btn-right" onclick="scrollArticles(300)">
+<i class="fas fa-chevron-right"></i>
+</button>
+<div class="articles-scroll-container" id="articlesScroll">
+<!-- Article 1 -->
+<div class="article-card-scroll article-card">
+<div class="article-image">
+<span>🌳</span>
+</div>
+<div class="article-content">
+<div class="article-meta">
+<span class="article-tag">Lingkungan</span>
+<span>5 menit baca</span>
+</div>
+<h3 style="font-size: 1.3rem; font-weight: bold; margin-bottom: 1rem;">Pentingnya Reboisasi</h3>
+<p>Hutan berperan penting mencegah banjir bandang. Pelajari bagaimana reboisasi dapat menyelamatkan lingkungan.</p>
+<button class="read-more" onclick="showArticle(1)">Baca Selengkapnya</button>
+</div>
+</div>
+<!-- Article 2 -->
+<div class="article-card-scroll article-card">
+<div class="article-image">
+<span>🏠</span>
+</div>
+<div class="article-content">
+<div class="article-meta">
+<span class="article-tag">Konstruksi</span>
+<span>7 menit baca</span>
+</div>
+<h3 style="font-size: 1.3rem; font-weight: bold; margin-bottom: 1rem;">Rumah Tahan Banjir</h3>
+<p>Tips membangun rumah tahan banjir dan langkah-langkah mitigasi untuk rumah di daerah rawan banjir.</p>
+<button class="read-more" onclick="showArticle(2)">Baca Selengkapnya</button>
+</div>
+</div>
+<!-- Article 3 -->
+<div class="article-card-scroll article-card">
+<div class="article-image">
+<span>⚠️</span>
+</div>
+<div class="article-content">
+<div class="article-meta">
+<span class="article-tag">Peringatan Dini</span>
+<span>4 menit baca</span>
+</div>
+<h3 style="font-size: 1.3rem; font-weight: bold; margin-bottom: 1rem;">Tanda Banjir Bandang</h3>
+<p>Kenali tanda-tanda awal banjir bandang dan langkah-langkah yang harus dilakukan untuk menyelamatkan diri.</p>
+<button class="read-more" onclick="showArticle(3)">Baca Selengkapnya</button>
+</div>
+</div>
+<!-- Article 4 -->
+<div class="article-card-scroll article-card">
+<div class="article-image">
+<span>🌋</span>
+</div>
+<div class="article-content">
+<div class="article-meta">
+<span class="article-tag">Bencana Alam</span>
+<span>6 menit baca</span>
+</div>
+<h3 style="font-size: 1.3rem; font-weight: bold; margin-bottom: 1rem;">Gempa Bumi</h3>
+<p>Data dan mitigasi gempa bumi di Indonesia. Pelajari cara menyelamatkan diri saat gempa terjadi.</p>
+<button class="read-more" onclick="showArticle(4)">Baca Selengkapnya</button>
+</div>
+</div>
+<!-- Article 5 -->
+<div class="article-card-scroll article-card">
+<div class="article-image">
+<span>📱</span>
+</div>
+<div class="article-content">
+<div class="article-meta">
+<span class="article-tag">Teknologi</span>
+<span>5 menit baca</span>
+</div>
+<h3 style="font-size: 1.3rem; font-weight: bold; margin-bottom: 1rem;">Teknologi Deteksi</h3>
+<p>Teknologi deteksi dini banjir bandang dan bagaimana sistem peringatan dini bekerja.</p>
+<button class="read-more" onclick="showArticle(5)">Baca Selengkapnya</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Videos Section -->
+<div class="section dark" id="videos">
+<div class="container">
+<h2 style="font-size: 2.5rem;">🎥 Video Edukasi</h2>
+<p style="text-align: center; max-width: 900px; margin: 0 auto 3rem; font-size: 1.2rem; line-height: 4;">
+                Tonton video edukasi dari sumber resmi tentang mitigasi banjir bandang
+            </p>
+<!-- Tab Navigation -->
+<div class="tab-container">
+<button class="tab-btn active" data-tab="tab1">Informasi Umum</button>
+<button class="tab-btn" data-tab="tab2">Panduan Kesiapsagaan</button>
+<button class="tab-btn" data-tab="tab3">Dampak dari Banjir</button>
+</div>
+<!-- Tab Content -->
+<div class="tab-content active" id="tab1">
+<div class="card-grid">
+<div class="video-card" data-video-id="sJsC6zQCfNI">
+<div class="video-thumbnail" id="thumbnail-sJsC6zQCfNI"></div>
+<div class="video-info">
+<h3 style="font-size: 1.3rem; font-weight: bold;">Informasi Umum tentang bencana banjir</h3>
+<p>Video dari BMKG tentang sistem peringatan dini cuaca ekstrem.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="tab-content" id="tab2">
+<div class="card-grid">
+<div class="video-card" data-video-id="41q4EGp0YoM">
+<div class="video-thumbnail" id="thumbnail-41q4EGp0YoM"></div>
+<div class="video-info">
+<h3 style="font-size: 1.3rem; font-weight: bold;">Panduan Kesiapsagaan Peringatan Dini Bencana Banjir</h3>
+<p>Panduan untuk mempersiapkan diri untuk mengatasi bencana banjir</p>
+</div>
+</div>
+</div>
+</div>
+<div class="tab-content" id="tab3">
+<div class="card-grid">
+<div class="video-card" data-video-id="94PETS_DZXo">
+<div class="video-thumbnail" id="thumbnail-94PETS_DZXo"></div>
+<div class="video-info">
+<h3 style="font-size: 1.3rem; font-weight: bold;">Dampak dari Banjir</h3>
+<p>Apa saja dampak yang disebabkan dari banjir</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Evacuation Section -->
+<div class="section" id="evacuation">
+<div class="container">
+<h2 style="font-size: 2.5rem;">🗺️ Area Evakuasi di Bandung</h2>
+<p style="text-align: center; max-width: 900px; margin: 0 auto 3rem; font-size: 1.2rem; line-height: 4;">
+                Ketahui lokasi-lokasi evakuasi yang aman di sekitar Bandung
+            </p>
+<div class="evacuation-area">
+<div class="grid md:grid-cols-2 gap-8">
+<div class="space-y-6">
+<div class="evacuation-item blue">
+<h4 class="font-semibold mb-2 flex items-center">
+<i class="fas fa-school mr-2"></i> SMAK 1 BPK Penabur Bandung
+                            </h4>
+<p>Jl. Dursasana No.2-6, Pamoyanan, Kec. Cicendo, Kota Bandung, Jawa Barat 40173</p>
+<p class="text-sm mt-2">Kapasitas: 500 orang | Fasilitas: Ruang kelas, toilet, air bersih</p>
+</div>
+<div class="evacuation-item green">
+<h4 class="font-semibold mb-2 flex items-center">
+<i class="fas fa-hospital mr-2"></i> RS Hasan Sadikin
+                            </h4>
+<p>Jl. Pasteur No.38, Pasteur, Kec. Sukajadi, Kota Bandung</p>
+<p class="text-sm mt-2">Kapasitas: 300 orang | Fasilitas: Medis, makanan, tempat tidur</p>
+</div>
+<div class="evacuation-item yellow">
+<h4 class="font-semibold mb-2 flex items-center">
+<i class="fas fa-landmark mr-2"></i> Gedung Sate
+                            </h4>
+<p>Jl. Diponegoro No.22, Citarum, Kec. Bandung Wetan, Kota Bandung</p>
+<p class="text-sm mt-2">Kapasitas: 400 orang | Fasilitas: Ruang terbuka, toilet</p>
+</div>
+<div class="evacuation-item purple">
+<h4 class="font-semibold mb-2 flex items-center">
+<i class="fas fa-running mr-2"></i> Stadion Siliwangi
+                            </h4>
+<p>Jl. Lombok No.58, Merdeka, Kec. Sumur Bandung, Kota Bandung</p>
+<p class="text-sm mt-2">Kapasitas: 1000 orang | Fasilitas: Area terbuka luas, toilet</p>
+</div>
+</div>
+<div class="map-container">
+<iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.907244294743!2d107.5964135!3d-6.9035718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e66a9e40f8cd%3A0xce6dca59f95077f7!2sSekolah%20Menengah%20Atas%20Kristen%201%20BPK%20Penabur%20Bandung!5e0!3m2!1sen!2sid!4v1639990000000!5m2!1sen!2sid" style="width:80%;height:80%;margin:auto;display:block;border-radius:10px;">
+</iframe>
+</div>
+</div>
+<div class="evacuation-item red mt-6">
+<h4 class="font-semibold mb-2 flex items-center">
+<i class="fas fa-phone-volume mr-2"></i> Kontak Darurat
+                    </h4>
+<div class="grid md:grid-cols-3 gap-4 text-sm">
+<div class="flex justify-between">
+<span>BPBD Kota Bandung</span>
+<span class="font-bold">(022) 7215555</span>
+</div>
+<div class="flex justify-between">
+<span>Posko Bencana</span>
+<span class="font-bold">(022) 4230762</span>
+</div>
+<div class="flex justify-between">
+<span>Ambulans</span>
+<span class="font-bold">118</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="contact">
+<div class="container">
+<h2 style="font-size: 2.5rem;">📞 Kontak &amp; Bantuan</h2>
+<div class="card-grid">
+<div class="card">
+<span class="icon">📞</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Nomor Darurat</h3>
+<p style="line-height: 2;">
+<strong>112</strong> - Darurat Nasional<br/>
+<strong>117</strong> - BNPB<br/>
+<strong>113</strong> - Pemadam Kebakaran<br/>
+<strong>118</strong> - Ambulans<br/>
+<strong>115</strong> - SAR
+                    </p>
+</div>
+<div class="card">
+<span class="icon">🌐</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Website Resmi</h3>
+<p style="line-height: 2;">
+<strong>BMKG</strong> - bmkg.go.id<br/>
+<strong>BNPB</strong> - bnpb.go.id<br/>
+<strong>BPBD</strong> - bpbd.go.id<br/>
+<strong>Magma Indonesia</strong>
+</p>
+</div>
+<div class="card">
+<span class="icon">📱</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Aplikasi Mobile</h3>
+<p style="line-height: 2;">
+<strong>Info BMKG</strong><br/>
+<strong>InaRISK</strong><br/>
+<strong>LAPOR!</strong><br/>
+<strong>PetaBencana.id</strong>
+</p>
+</div>
+<div class="card">
+<span class="icon">📚</span>
+<h3 style="font-size: 1.5rem; font-weight: bold;">Edukasi</h3>
+<p style="line-height: 2;">
+<strong>Sekolah Siaga</strong><br/>
+<strong>Relawan Bencana</strong><br/>
+<strong>Workshop</strong><br/>
+<strong>Simulasi Evakuasi</strong>
+</p>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div style="position: relative; z-index: 1;">
+<h3 style="font-size: 2rem; margin-bottom: 1rem;">🤝 Mari Bersama Menjaga Lingkungan dan Melindungi Kehidupan</h3>
+<p style="margin-top: 1.5rem; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Pencegahan adalah kunci utama dalam menghadapi banjir bandang. Dengan kesadaran dan tindakan bersama, kita dapat mengurangi risiko dan dampak bencana.
+            </p>
+<div style="margin: 2rem 0;">
+<div style="display: inline-block; margin: 0 1rem;">
+<div style="font-size: 2rem;">🌳</div>
+<p style="margin-top: 0.5rem;">Reboisasi</p>
+</div>
+<div style="display: inline-block; margin: 0 1rem;">
+<div style="font-size: 2rem;">🚨</div>
+<p style="margin-top: 0.5rem;">Siaga 24/7</p>
+</div>
+<div style="display: inline-block; margin: 0 1rem;">
+<div style="font-size: 2rem;">📚</div>
+<p style="margin-top: 0.5rem;">Edukasi</p>
+</div>
+<div style="display: inline-block; margin: 0 1rem;">
+<div style="font-size: 2rem;">🤲</div>
+<p style="margin-top: 0.5rem;">Gotong Royong</p>
+</div>
+</div>
+<p class="credits">✨ by Jonathan and Timotius ✨</p>
+<p style="margin-top: 2rem; opacity: 0.7; font-size: 0.9rem;">© 2025 Mitigasi Banjir Bandang. Website Edukatif dibuat oleh Timotius dan Jonathan X-H</p>
+</div>
+</footer>
+<div class="floating-button" onclick="scrollToTop()">
+        ↑
+    </div>
+<!-- Article Modal -->
+<div class="modal" id="articleModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 class="text-2xl font-bold" id="articleTitle"></h2>
+<button class="close-modal" onclick="closeModal('articleModal')">×</button>
+</div>
+<div class="modal-body" id="articleContent">
+<!-- Article content will be loaded here -->
+</div>
+</div>
+</div>
+<!-- Video Modal -->
+<div class="modal" id="videoModal">
+<div class="modal-content" style="max-width: 900px;">
+<div class="modal-header">
+<h2 class="text-2xl font-bold" id="videoTitle"></h2>
+<button class="close-modal" onclick="closeModal('videoModal')">×</button>
+</div>
+<div class="modal-body p-0">
+<div class="video-container">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" id="videoPlayer" src="" style="width:80%;height:80%;margin:auto;display:block;border-radius:10px;"></iframe>
+</div>
+</div>
+</div>
+</div>
+<script>
+        // Particles Animation
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 80;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(100, 200, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(100, 200, 255, ${0.2 * (1 - distance / 100)})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Water Drops Animation
+        const waterDropsContainer = document.getElementById('waterDrops');
+        function createWaterDrop() {
+            const drop = document.createElement('div');
+            drop.className = 'water-drop';
+            drop.style.left = Math.random() * 100 + '%';
+            drop.style.width = drop.style.height = (Math.random() * 30 + 10) + 'px';
+            drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            drop.style.animationDelay = Math.random() * 2 + 's';
+            waterDropsContainer.appendChild(drop);
+
+            setTimeout(() => {
+                drop.remove();
+            }, 5000);
+        }
+
+        setInterval(createWaterDrop, 300);
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            scrollProgress.style.width = progress + '%';
+        });
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200;
+
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = +counter.getAttribute('data-target');
+                    const increment = target / speed;
+
+                    const updateCounter = () => {
+                        const current = +counter.innerText;
+                        if (current < target) {
+                            counter.innerText = Math.ceil(current + increment);
+                            setTimeout(updateCounter, 10);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+
+                    updateCounter();
+                    counterObserver.unobserve(counter);
+                }
+            });
+        }, observerOptions);
+
+        counters.forEach(counter => counterObserver.observe(counter));
+
+        // Card Animation on Scroll
+        const cards = document.querySelectorAll('.card');
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                    }, index * 100);
+                    cardObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => cardObserver.observe(card));
+
+        // Steps Animation
+        const steps = document.querySelectorAll('.step');
+        const stepObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                    }, index * 150);
+                    stepObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        steps.forEach(step => stepObserver.observe(step));
+
+        // Progress Bar Animation
+        const progressFills = document.querySelectorAll('.progress-fill');
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const fill = entry.target;
+                    const width = fill.getAttribute('data-width');
+                    setTimeout(() => {
+                        fill.style.width = width + '%';
+                    }, 300);
+                    progressObserver.unobserve(fill);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        progressFills.forEach(fill => progressObserver.observe(fill));
+
+        // Accordion Toggle
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('span:last-child');
+            
+            document.querySelectorAll('.accordion-content').forEach(item => {
+                if (item !== content) {
+                    item.classList.remove('active');
+                    item.previousElementSibling.querySelector('span:last-child').style.transform = 'rotate(0deg)';
+                }
+            });
+
+            content.classList.toggle('active');
+            
+            if (content.classList.contains('active')) {
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Video Card Animation
+        const videoCards = document.querySelectorAll('.video-card');
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                    }, index * 100);
+                    videoObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        videoCards.forEach(card => videoObserver.observe(card));
+
+        // Article Card Animation
+        const articleCards = document.querySelectorAll('.article-card');
+        const articleObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                    }, index * 120);
+                    articleObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        articleCards.forEach(card => articleObserver.observe(card));
+
+        // Smooth Scroll for Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.remove('light-mode');
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️';
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                darkModeToggle.textContent = '☀️';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeToggle.textContent = '🌙';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        // Tab functionality
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Articles scroll function
+        function scrollArticles(distance) {
+            const container = document.getElementById('articlesScroll');
+            container.scrollBy({
+                left: distance,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show article modal
+        function showArticle(articleId) {
+            const articles = {
+                1: {
+                    title: "Pentingnya Reboisasi untuk Mencegah Banjir",
+                    content: `
+                        <div class="prose max-w-none">
+                            <div class="mb-6">
+                                <div class="text-6xl text-center mb-4">🌳</div>
+                                <p class="text-lg text-center italic">Hutan adalah benteng alami terbaik melawan banjir bandang</p>
+                            </div>
+                            
+                            <h3 class="text-xl font-semibold mb-4 text-green-600">Mengapa Reboisasi Penting?</h3>
+                            <p class="mb-4">Hutan berperan sebagai spons raksasa yang menyerap air hujan. Ketika hutan gundul, air hujan langsung mengalir ke sungai tanpa ada yang menahan, menyebabkan banjir bandang yang berbahaya.</p>
+                            
+                            <h3 class="text-xl font-semibold mb-4 text-green-600">Manfaat Hutan dalam Mencegah Banjir:</h3>
+                            <ul class="list-disc pl-6 mb-6 space-y-2">
+                                <li><strong>Penyerapan Air:</strong> Akar pohon menyerap air hujan hingga 200 liter per hari</li>
+                                <li><strong>Pencegahan Erosi:</strong> Akar mengikat tanah agar tidak terbawa air</li>
+                                <li><strong>Pengaturan Aliran:</strong> Hutan memperlambat aliran air menuju sungai</li>
+                                <li><strong>Cadangan Air:</strong> Hutan menyimpan air untuk musim kemarau</li>
+                            </ul>
+
+                            <h3 class="text-xl font-semibold mb-4 text-green-600">Langkah-langkah Reboisasi:</h3>
+                            <ol class="list-decimal pl-6 mb-6 space-y-2">
+                                <li>Pemilihan bibit tanaman yang tepat untuk daerah tersebut</li>
+                                <li>Penanaman pada musim hujan untuk memastikan pertumbuhan optimal</li>
+                                <li>Pemeliharaan tanaman hingga tumbuh dengan baik</li>
+                                <li>Pemantauan berkala untuk memastikan kesehatan hutan</li>
+                            </ol>
+
+                            <div class="bg-green-50 dark:bg-green-900 p-4 rounded-lg mt-6">
+                                <h4 class="font-semibold mb-2">💡 Tips untuk Masyarakat:</h4>
+                                <p>Anda juga dapat berkontribusi dengan menanam pohon di lingkungan sekitar, mengikuti program reboisasi, atau mendukung organisasi yang bergerak di bidang pelestarian hutan.</p>
+                            </div>
+                        </div>
+                    `
+                },
+                2: {
+                    title: "Membangun Rumah Tahan Banjir",
+                    content: `
+                        <div class="prose max-w-none">
+                            <div class="mb-6">
+                                <div class="text-6xl text-center mb-4">🏠</div>
+                                <p class="text-lg text-center italic">Desain rumah yang cerdas dapat menyelamatkan nyawa dan harta benda</p>
+                            </div>
+                            
+                            <h3 class="text-xl font-semibold mb-4 text-blue-600">Prinsip Dasar Rumah Tahan Banjir</h3>
+                            <p class="mb-4">Rumah tahan banjir dirancang untuk meminimalkan kerusakan akibat air dan memungkinkan penghuni tetap aman saat banjir terjadi.</p>
+                            
+                            <h3 class="text-xl font-semibold mb-4 text-blue-600">Desain Struktural:</h3>
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div class="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">🏗️ Fondasi Tinggi</h4>
+                                    <p class="text-sm">Bangun rumah dengan fondasi 1-2 meter di atas permukaan tanah normal</p>
+                                </div>
+                                <div class="bg-green-50 dark:bg-green-900 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">🚪 Pintu dan Jendela</h4>
+                                    <p class="text-sm">Pasang pintu dan jendela yang kedap air dengan sistem segel khusus</p>
+                                </div>
+                                <div class="bg-yellow-50 dark:bg-yellow-900 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">🔌 Sistem Kelistrikan</h4>
+                                    <p class="text-sm">Tempatkan panel listrik dan stopkontak di ketinggian aman</p>
+                                </div>
+                                <div class="bg-purple-50 dark:bg-purple-900 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">💧 Bahan Tahan Air</h4>
+                                    <p class="text-sm">Gunakan material bangunan yang tahan air dan tidak mudah rusak</p>
+                                </div>
+                            </div>
+
+                            <h3 class="text-xl font-semibold mb-4 text-blue-600">Persiapan untuk Rumah yang Sudah Ada:</h3>
+                            <ul class="list-disc pl-6 mb-6 space-y-2">
+                                <li>Pasang penghalang banjir di sekitar properti</li>
+                                <li>Tinggikan peralatan elektronik dan barang berharga</li>
+                                <li>Siapkan pompa air untuk menguras genangan</li>
+                                <li>Buat sistem drainase yang efektif di sekitar rumah</li>
+                            </ul>
+                        </div>
+                    `
+                },
+                3: {
+                    title: "Mengenali Tanda-tanda Banjir Bandang",
+                    content: `
+                        <div class="prose max-w-none">
+                            <div class="mb-6">
+                                <div class="text-6xl text-center mb-4">⚠️</div>
+                                <p class="text-lg text-center italic">Kenali tanda-tanda bahaya untuk menyelamatkan diri dan keluarga</p>
+                            </div>
+                            
+                            <h3 class="text-xl font-semibold mb-4 text-red-600">Tanda-tanda Visual:</h3>
+                            <ul class="list-disc pl-6 mb-6 space-y-2">
+                                <li><strong>Air Sungai Keruh:</strong> Air berubah warna menjadi coklat keruh karena membawa lumpur dan material dari hulu</li>
+                                <li><strong>Permukaan Air Naik Cepat:</strong> Kenaikan permukaan air yang tidak wajar meski hujan belum terlalu deras</li>
+                                <li><strong>Munculnya Busa atau Buih:</strong> Tanda adanya tekanan air yang kuat di hulu</li>
+                                <li><strong>Material Hanyut:</strong> Terlihat kayu, sampah, atau material lain hanyut dengan cepat</li>
+                            </ul>
+                            
+                            <h3 class="text-xl font-semibold mb-4 text-red-600">Tanda-tanda Auditori:</h3>
+                            <ul class="list-disc pl-6 mb-6 space-y-2">
+                                <li><strong>Suara Gemuruh:</strong> Suara seperti kereta api dari arah hulu sungai</li>
+                                <li><strong>Suara Pecahan Batu:</strong> Bunyi seperti batu saling beradu akibat arus kuat</li>
+                            </ul>
+
+                            <h3 class="text-xl font-semibold mb-4 text-red-600">Tanda-tanda Lingkungan:</h3>
+                            <ul class="list-disc pl-6 mb-6 space-y-2">
+                                <li><strong>Perilaku Hewan:</strong> Anjing menggonggong tidak wajar, burung terbang tidak menentu</li>
+                                <li><strong>Perubahan Aroma:</strong> Bau tanah atau lumpur yang kuat</li>
+                                <li><strong>Getaran Tanah:</strong> Getaran halus akibat air yang mengalir deras</li>
+                            </ul>
+
+                            <div class="bg-red-50 dark:bg-red-900 p-4 rounded-lg mt-6">
+                                <h4 class="font-semibold mb-2">🚨 Tindakan Segera:</h4>
+                                <p>Jika Anda melihat salah satu tanda ini, segera evakuasi ke tempat yang lebih tinggi tanpa menunggu peringatan resmi. Waktu respons sangat terbatas dalam situasi banjir bandang.</p>
+                            </div>
+                        </div>
+                    `
+                },
+                4: {
+                    title: "Gempa Bumi dan Kaitannya dengan Banjir Bandang",
+                    content: `
+                        <div class="prose max-w-none">
+                            <div class="mb-6">
+                                <div class="text-6xl text-center mb-4">🌋</div>
+                                <p class="text-lg text-center italic">Memahami hubungan antara gempa bumi dan banjir bandang</p>
+                            </div>
+                            
+                            <h3 class="text-xl font-semibold mb-4 text-orange-600">Dampak Gempa terhadap Topografi:</h3>
+                            <p class="mb-4">Gempa bumi dapat mengubah struktur tanah dan batuan, membuat daerah lebih rentan terhadap banjir bandang. Berikut adalah beberapa efek gempa yang meningkatkan risiko banjir:</p>
+                            
+                            <ul class="list-disc pl-6 mb-6 space-y-2">
+                                <li><strong>Longsor Bawah Laut/Tanah:</strong> Gempa dapat memicu longsor yang menghalangi aliran sungai</li>
+                                <li><strong>Retakan Tanah:</strong> Membuat tanah lebih mudah tererosi oleh air hujan</li>
+                                <li><strong>Perubahan Aliran Sungai:</strong> Gempa dapat mengubah arah aliran sungai secara tiba-tiba</li>
+                                <li><strong>Kerusakan Bendungan Alami:</strong> Menghancurkan bendungan alami yang menahan air</li>
+                            </ul>
+
+                            <h3 class="text-xl font-semibold mb-4 text-orange-600">Studi Kasus:</h3>
+                            <div class="bg-orange-50 dark:bg-orange-900 p-4 rounded-lg mb-6">
+                                <h4 class="font-semibold mb-2">Palu, Sulawesi Tengah (2018)</h4>
+                                <p>Gempa bumi dan tsunami di Palu diikuti oleh banjir bandang yang disebabkan oleh likuifaksi tanah. Peristiwa ini menunjukkan bagaimana gempa dapat memicu serangkaian bencana lainnya.</p>
+                            </div>
+
+                            <h3 class="text-xl font-semibold mb-4 text-orange-600">Langkah Pencegahan:</h3>
+                            <ol class="list-decimal pl-6 mb-6 space-y-2">
+                                <li>Pemetaan daerah rawan gempa dan banjir bandang</li>
+                                <li>Pembangunan infrastruktur yang tahan gempa dan banjir</li>
+                                <li>Sistem peringatan dini terintegrasi</li>
+                                <li>Edukasi masyarakat tentang evakuasi multidimensi</li>
+                            </ol>
+                        </div>
+                    `
+                },
+                5: {
+                    title: "Teknologi Deteksi Dini Banjir Bandang",
+                    content: `
+                        <div class="prose max-w-none">
+                            <div class="mb-6">
+                                <div class="text-6xl text-center mb-4">📱</div>
+                                <p class="text-lg text-center italic">Memanfaatkan teknologi modern untuk keselamatan yang lebih baik</p>
+                            </div>
+                            
+                            <h3 class="text-xl font-semibold mb-4 text-purple-600">Sistem Sensor Canggih:</h3>
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div class="bg-purple-50 dark:bg-purple-900 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">📊 Sensor Ketinggian Air</h4>
+                                    <p class="text-sm">Dipasang di sungai untuk memantau kenaikan permukaan air secara real-time</p>
+                                </div>
+                                <div class="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">🌧️ Sensor Curah Hujan</h4>
+                                    <p class="text-sm">Mengukur intensitas hujan untuk memprediksi potensi banjir</p>
+                                </div>
+                                <div class="bg-green-50 dark:bg-green-900 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">🛰️ Penginderaan Jauh</h4>
+                                    <p class="text-sm">Satelit memantau perubahan tutupan lahan dan potensi banjir</p>
+                                </div>
+                                <div class="bg-yellow-50 dark:bg-yellow-900 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">📡 Radar Cuaca</h4>
+                                    <p class="text-sm">Mendeteksi sistem cuaca ekstrem yang dapat menyebabkan banjir</p>
+                                </div>
+                            </div>
+
+                            <h3 class="text-xl font-semibold mb-4 text-purple-600">Aplikasi dan Platform Digital:</h3>
+                            <ul class="list-disc pl-6 mb-6 space-y-2">
+                                <li><strong>Info BMKG:</strong> Aplikasi resmi BMKG untuk informasi cuaca terkini</li>
+                                <li><strong>InaRISK:</strong> Platform BNPB untuk pemetaan risiko bencana</li>
+                                <li><strong>PetaBencana.id:</strong> Platform kolaboratif untuk pemetaan banjir</li>
+                                <li><strong>Siaga Bencana:</strong> Aplikasi dengan panduan kesiapsiagaan bencana</li>
+                            </ul>
+
+                            <h3 class="text-xl font-semibold mb-4 text-purple-600">Integrasi Sistem:</h3>
+                            <p class="mb-4">Sistem deteksi dini modern mengintegrasikan berbagai teknologi untuk memberikan peringatan yang lebih akurat dan tepat waktu:</p>
+                            
+                            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-6">
+                                <h4 class="font-semibold mb-2">Alur Kerja Sistem Peringatan Dini:</h4>
+                                <ol class="list-decimal pl-6 space-y-2">
+                                    <li>Sensor mendeteksi perubahan parameter (curah hujan, ketinggian air)</li>
+                                    <li>Data dikirim ke pusat pemrosesan melalui jaringan nirkabel</li>
+                                    <li>Algoritma AI menganalisis data dan memprediksi risiko</li>
+                                    <li>Sistem mengirimkan peringatan melalui SMS, aplikasi, dan sirene</li>
+                                    <li>Masyarakat menerima informasi dan melakukan evakuasi</li>
+                                </ol>
+                            </div>
+
+                            <div class="bg-purple-50 dark:bg-purple-900 p-4 rounded-lg mt-6">
+                                <h4 class="font-semibold mb-2">💡 Tips untuk Masyarakat:</h4>
+                                <p>Pastikan Anda mengunduh aplikasi peringatan bencana, mengaktifkan notifikasi, dan memahami arti dari setiap tingkat peringatan yang diberikan.</p>
+                            </div>
+                        </div>
+                    `
+                }
+            };
+            
+            const article = articles[articleId];
+            if (article) {
+                document.getElementById('articleTitle').textContent = article.title;
+                document.getElementById('articleContent').innerHTML = article.content;
+                document.getElementById('articleModal').classList.add('active');
+            }
+        }
+
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            if (modalId === 'videoModal') {
+                document.getElementById('videoPlayer').src = '';
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const articleModal = document.getElementById('articleModal');
+            const videoModal = document.getElementById('videoModal');
+            
+            if (event.target === articleModal) {
+                closeModal('articleModal');
+            }
+            if (event.target === videoModal) {
+                closeModal('videoModal');
+            }
+        });
+
+        // YouTube Thumbnail System
+        function loadYouTubeThumbnails() {
+            const videoCards = document.querySelectorAll('.video-card');
+            
+            videoCards.forEach(card => {
+                const videoId = card.getAttribute('data-video-id');
+                const thumbnailElement = card.querySelector('.video-thumbnail');
+                
+                // Set thumbnail background image
+                thumbnailElement.style.backgroundImage = `url(https://img.youtube.com/vi/${videoId}/maxresdefault.jpg)`;
+                
+                // Add click event to open video modal
+                card.addEventListener('click', () => {
+                    openVideoModal(videoId, card.querySelector('h3').textContent);
+                });
+            });
+        }
+
+        // Open video modal
+        function openVideoModal(videoId, title) {
+            const videoPlayer = document.getElementById('videoPlayer');
+            document.getElementById('videoTitle').textContent = title;
+            videoPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            document.getElementById('videoModal').classList.add('active');
+        }
+
+        // Emergency banner close functionality
+        document.getElementById('emergencyBanner').addEventListener('click', function() {
+            this.style.animation = 'slideUp 0.5s ease-out forwards';
+            setTimeout(() => {
+                this.style.display = 'none';
+            }, 500);
+        });
+
+        // Article search functionality
+        document.getElementById('articleSearch').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const articles = document.querySelectorAll('.article-card-scroll');
+            
+            articles.forEach(article => {
+                const title = article.querySelector('h3').textContent.toLowerCase();
+                const content = article.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        });
+
+        // Initialize YouTube thumbnails when page loads
+        window.addEventListener('DOMContentLoaded', loadYouTubeThumbnails);
+    </script>
+</body>
+</html>
